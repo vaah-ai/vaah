@@ -1,9 +1,11 @@
-# VaahApp
+# Vaah
+
+*The agent-native platform for building next-gen agentic software.*
 
 ## Overview
-VaahApp is going to be an agentic HMVC Software Application Development Platform for rapid software development.
+Vaah is an agent-natiave HMVC software application development platform for rapid agentic software development. It is an open-source **core** that you extend with completely separate, installable **modules** to add functionality on top. The software you build on Vaah is **agent-native** — AI agents can understand and operate it through open standards (MCP, A2A, OpenAPI).
 
-VaahApp is going to be a core software which can have completely separate modules like cms, crm, epr etc. These modules will extend the functionality.
+Most importantly, Vaah is designed to be the favorite of both its audiences: the platform **developers** choose to build on, and the platform **LLMs** (Claude, ChatGPT, Gemini) can drive.
 
 ## Design Priorities
 Four guiding constraints for all design decisions:
@@ -20,7 +22,7 @@ Four guiding constraints for all design decisions:
 - Real-time dashboards
 - Highly Performant
 - It should support dark and light mode
-- VaahApp's top menu, left menu, profile dropdown on top menu and various other ui component should be extendable from other modules
+- Vaah's top menu, left menu, profile dropdown on top menu and various other ui component should be extendable from other modules
 - Frontend should support themes which can be and should be configurable from backend settings page
 - Email and Notification should be customization using editor and it should support variables
 - Notification can be delivered with various methods, like email, admin dashboard, push notification etc
@@ -41,7 +43,7 @@ The core is open source so that third-party developers can build modules on it �
 - **Coding-agent friendly**: a CLI + agent-readable conventions (`AGENTS.md`) so coding agents scaffold and extend modules the way they work on any modern repo.
 - **Tooling**: strict TypeScript, auto-generated types from the data model, linting/formatting, and a consistent error surface.
 - **Test & verify**: a module test harness (unit + integration against a seeded instance) to verify a module before distributing it.
-- **Portability**: a module built once runs on any VaahApp deployment (self-hosted by different businesses) without code changes, by targeting stable core extension points (see Extension Points).
+- **Portability**: a module built once runs on any Vaah deployment (self-hosted by different businesses) without code changes, by targeting stable core extension points (see Extension Points).
 
 ## RBAC
 - Backend will have permission, roles and users
@@ -73,7 +75,7 @@ The core is open source so that third-party developers can build modules on it �
 - **Distribution (later stage)**: a module registry / marketplace for distributing modules — publishing, discovering, and installing (distinct from the frontend module registry used for UI extension) — hosted at vaah.ai, planned for a later stage; until then, modules are installed directly (e.g. from a package/URL).
 
 ## Licensing & Distribution
-- **Core is open source**: the VaahApp core platform ships open source; commercial value lives in modules.
+- **Core is open source**: the Vaah core platform ships open source; commercial value lives in modules.
 - **Independent module licensing**: each module carries its own license — open source, freemium, premium, or SaaS.
 - **Mixed-licensing runtime**: the core installs, enables, upgrades, and runs modules of different license types side by side; license type is a per-module property.
 - **Entitlement enforcement**: the module lifecycle supports license checks — premium modules verify a license/entitlement, freemium modules enforce feature or seat caps, SaaS modules authenticate to a remote service. The core provides the enforcement hooks; billing/entitlement logic stays with the module/vendor.
@@ -103,7 +105,7 @@ Whenever a CRUD is scaffolded, it automatically includes:
 - **Agent attribution**: when an agent performs a change on behalf of a user, the record stores both the accountable principal (`created_by`/`updated_by`/`deleted_by` = `user_id`) and the instrument (`is_agent` + `agent_identity`, plus a link to the agent session/trace). `is_agent` reflects the most recent mutation. Applies to create, update, and delete.
 - **Agent attribution in UI**: agent-made changes are identifiable on the dashboard — a row-level badge, a filter for agent-made changes, and attribution in the item/audit detail ("by Agent X on behalf of User Y").
 - **API endpoints**: CRUD endpoints (REST + GraphQL) generated for the entity.
-- **MCP**: the entity's operations are exposed as tools on the VaahApp MCP server.
+- **MCP**: the entity's operations are exposed as tools on the Vaah MCP server.
 - **Soft delete as default** (via `deleted_at`), not hard delete.
 - **UI actions**: restore a deleted record, and permanently delete it.
 - **Form actions**: save, save and new, save and clone.
@@ -130,7 +132,7 @@ A settings page (admin) to configure:
 - **Custom user profile fields**: add custom fields to extend the user profile.
 - **2FA**: option to enable two-factor authentication.
 - **Social login**: configure providers (Google, Facebook, LinkedIn).
-- **Upgrade**: option to upgrade VaahApp (core).
+- **Upgrade**: option to upgrade Vaah (core).
 
 ## Registrations
 - A `registrations` CRUD.
@@ -139,8 +141,8 @@ A settings page (admin) to configure:
 - Purpose: keep unverified/dummy data out of the `users` table.
 
 ## Media & Taxonomy
-- **Media manager**: a core capability for managing media (upload, organize, reference) with on-demand transformations (resize/reformat) and CDN-ready delivery — usable in VaahApp and its modules.
-- **Nested taxonomy manager**: a core capability for managing nested/hierarchical taxonomies (e.g. categories with subcategories) — usable in VaahApp and its modules.
+- **Media manager**: a core capability for managing media (upload, organize, reference) with on-demand transformations (resize/reformat) and CDN-ready delivery — usable in Vaah and its modules.
+- **Nested taxonomy manager**: a core capability for managing nested/hierarchical taxonomies (e.g. categories with subcategories) — usable in Vaah and its modules.
 
 ## Data & Storage
 - **File/media storage backends**: the platform stores files on one of two backends — **local filesystem** (files on the server) or **S3-compatible object storage** (AWS S3, MinIO, DigitalOcean Spaces, Cloudflare R2, …).
@@ -202,8 +204,8 @@ A deterministic automation engine: configure trigger → steps → actions witho
 - An AI button in the admin dashboard opens a chat where the user asks the AI agent to perform a task; the agent performs the task and renders UI components in the chat.
 - **Agent runs server-side (in NestJS)**: the agent loop (LLM + tool orchestration) executes in the backend, not the browser — keeping LLM keys and tool execution off the client, enforcing the security boundary, and enabling scheduled/autonomous and background agents to run without a client. The dashboard chat is a thin client that streams the agent's output (tokens, tool progress) over a persistent connection.
 - The agent is backed by two MCP servers:
-  - VaahApp MCP server: CRUD and domain operations (generic tools + schema resources + journey prompts), reusing the same backend services as the REST API.
-  - GenicUI MCP server: UI rendering (render / update / subscribe), provided by GenicUI and used as-is (not re-implemented in the VaahApp server).
+  - Vaah MCP server: CRUD and domain operations (generic tools + schema resources + journey prompts), reusing the same backend services as the REST API.
+  - GenicUI MCP server: UI rendering (render / update / subscribe), provided by GenicUI and used as-is (not re-implemented in the Vaah server).
 - **Shared identity across both servers**: the domain and UI servers act under one shared identity — the same user token, RBAC, audit, and `is_agent`/`agent_identity` attribution. The UI server never runs with a different or elevated identity than the domain server; the agent is the intermediary (the servers do not call each other).
 - Component model (chosen per capability):
   - Capability components: self-contained, own business logic, semantic props (e.g. UserSearch accepts a query prop and fetches its own data).
@@ -211,7 +213,7 @@ A deterministic automation engine: configure trigger → steps → actions witho
   - Components are authored in React (reused from the dashboard) and wrapped in a thin Web Component (a `GenicElement` subclass that renders the React component into a closed Shadow DOM) for GenicUI; the same React components are packaged as MCP Apps for cross-host rendering. One React component library, two packaging targets.
 - Component catalog: every registered component carries a when-to-use description, a prop schema, and an example, so the agent can discover and route to the right component.
 - **UI rendering surfaces (dual)**:
-  - **In-app**: GenicUI renders components inside the VaahApp dashboard chat (deep AG-UI integration, shared state, theming, real-time).
+  - **In-app**: GenicUI renders components inside the Vaah dashboard chat (deep AG-UI integration, shared state, theming, real-time).
   - **Cross-host**: the same components are packaged as MCP Apps (an extension to the core MCP spec) so they render inside any MCP host (Claude Desktop, VS Code Copilot, M365 Copilot, …).
   - Phased: GenicUI first (product surface), MCP Apps as a later portability layer.
 - Agent security:
@@ -244,30 +246,30 @@ The platform supports multiple named agents, each a pre-configured specialist wi
 - **MCP management UI**: view/enable/configure MCP servers and tools, connect external MCP servers, and allow-list which tools a role can use.
 
 ## Agent-Native Platform
-VaahApp is agent-native: it is designed so that AI agents — the built-in runtime agent, external coding agents, and other systems' agents — can understand and operate it with minimal hand-holding, each via an open standard.
+Vaah is agent-native: it is designed so that AI agents — the built-in runtime agent, external coding agents, and other systems' agents — can understand and operate it with minimal hand-holding, each via an open standard.
 
 ### Three agent surfaces
 - **Runtime** — operate the live app: the built-in chat agent performs CRUD/domain operations and renders UI (see Agentic Platform, Agent Operations).
-- **Build-time** — develop on the platform: coding agents (e.g. Claude Code, Copilot) scaffold and extend modules, CRUDs, and custom code on VaahApp.
-- **Inter-agent** — agents delegating to/from VaahApp: external agents treat a VaahApp agent as a peer.
+- **Build-time** — develop on the platform: coding agents (e.g. Claude Code, Copilot) scaffold and extend modules, CRUDs, and custom code on Vaah.
+- **Inter-agent** — agents delegating to/from Vaah: external agents treat a Vaah agent as a peer.
 
-### Full MCP surface (VaahApp MCP server)
+### Full MCP surface (Vaah MCP server)
 Beyond tools, the server exposes the full MCP capability set:
 - **Tools**: CRUD/domain operations, reusing the same backend services as the REST API.
 - **Resources**: the data model, schemas, and documentation exposed for progressive disclosure. Per-entity schemas use resource templates (parameterized URIs); annotations (`audience`, `priority`) steer the model.
 - **Prompts**: reusable multi-step "journeys" exposed as slash commands.
 - **`instructions`**: server-level standing guidance returned at initialize, describing how to use the whole server (tool specs as prompts).
-- **MCP Apps**: VaahApp components can render as sandboxed-iframe HTML apps inside any MCP host (Claude Desktop, VS Code Copilot, M365 Copilot, …) via a `ui://` resource, with bidirectional tool/data flow.
+- **MCP Apps**: Vaah components can render as sandboxed-iframe HTML apps inside any MCP host (Claude Desktop, VS Code Copilot, M365 Copilot, …) via a `ui://` resource, with bidirectional tool/data flow.
 
 ### A2A (agent-to-agent)
-- VaahApp exposes itself as an A2A agent with an **Agent Card** (a JSON manifest of capabilities, skills, and connection info served at a well-known URL) so external agents can discover it and delegate tasks.
+- Vaah exposes itself as an A2A agent with an **Agent Card** (a JSON manifest of capabilities, skills, and connection info served at a well-known URL) so external agents can discover it and delegate tasks.
 - Supports the A2A task lifecycle, including an **`input-required`** state for native human-in-the-loop.
 - Transports: JSON-RPC 2.0 over HTTP(S), with SSE streaming and async push notifications.
-- Complements MCP: MCP lets an LLM use VaahApp's tools; A2A lets another agent delegate a whole task to a VaahApp agent as a peer.
+- Complements MCP: MCP lets an LLM use Vaah's tools; A2A lets another agent delegate a whole task to a Vaah agent as a peer.
 
 ### Spec-driven build-time agents
 - "Vibe coding" a module/CRUD follows a spec-driven workflow: **constitution → specify → plan → tasks → implement → converge**, each artifact reviewed before the next, with a verify loop until converged.
-- A **CLI** and agent-readable conventions (an `AGENTS.md` / `VAAGENTS.md`) let coding agents scaffold and extend VaahApp projects the way they work on any modern repo.
+- A **CLI** and agent-readable conventions (an `AGENTS.md` / `VAAGENTS.md`) let coding agents scaffold and extend Vaah projects the way they work on any modern repo.
 - Build-time agent work is auditable and repeatable — spec/plan/tasks/convergence reports are persisted — not a freeform prompt.
 
 ### Self-description layer
@@ -304,7 +306,7 @@ The LLM layer that agents and AI features use is centrally managed, provider-agn
 - **Webhooks / outbound integrations**: emit events to external systems.
 
 ## Multi-tenancy
-VaahApp is **multi-tenant-capable**: one deployment can host one or many tenants (a tenant = a business/organization boundary). A self-hosted instance for a single business is simply the one-tenant case — no special code required.
+Vaah is **multi-tenant-capable**: one deployment can host one or many tenants (a tenant = a business/organization boundary). A self-hosted instance for a single business is simply the one-tenant case — no special code required.
 - **Default**: a fresh self-hosted instance provisions a single tenant (that business); multi-tenant hosting is enabled by adding more tenants.
 - **Data isolation**: **separate database per tenant** — each tenant's data lives in its own database (or schema), the strongest isolation, and makes per-tenant backup and GDPR deletion straightforward.
 - **Tenant admin vs platform admin**: in multi-tenant mode, a platform-level admin manages tenants (provisioning, configuration), distinct from each tenant's own admins.
@@ -399,11 +401,11 @@ Platform-level observability (distinct from agent observability in Agent Operati
 - **Metrics**: performance metrics (latency, error rate, saturation) surfaced in Monitoring.
 
 ## Deployment & Self-hosting
-Self-hosting is the primary, first-class deployment model: an organization runs VaahApp on its own infrastructure (VPS, VM, private cloud, on-prem, or container orchestrator). A managed offering may exist later, but self-host is the priority and the one that must always work.
+Self-hosting is the primary, first-class deployment model: an organization runs Vaah on its own infrastructure (VPS, VM, private cloud, on-prem, or container orchestrator). A managed offering may exist later, but self-host is the priority and the one that must always work.
 - **Packaging**: containerized (Docker / Docker Compose) as the default install path, plus bare-metal/VM (Node.js) and Kubernetes for scale; a documented, reproducible install.
 - **Configuration**: configured via environment variables / config (app URL, DB connection, storage backend, LLM provider + key, secret, …); the onboarding wizard handles first-run setup, ongoing config is env-based.
 - **Dependencies**: Node.js (NestJS), a relational database (e.g. PostgreSQL), Redis (cache + queue), and a storage backend (local or S3, see Data & Storage); an LLM provider (BYO key). Minimum requirements documented.
-- **Self-contained core**: the core is fully functional self-hosted without phoning home to a central VaahApp service. Remote calls are limited to optional items (update/upgrade checks, premium/SaaS module license validation).
+- **Self-contained core**: the core is fully functional self-hosted without phoning home to a central Vaah service. Remote calls are limited to optional items (update/upgrade checks, premium/SaaS module license validation).
 - **Upgrades**: self-service upgrade path — pull the new version, run migrations/seeds, restart; documented and reversible (see Settings → Upgrade).
 - **Data sovereignty**: all data (DB, files) stays on the user's infrastructure; exports and backups are available (see Platform).
 
@@ -430,7 +432,7 @@ The platform must survive failures and be recoverable, with defined recovery obj
 - **DR testing**: periodic restore / failover drills to validate RPO/RTO.
 
 ## Platform Standing & Adoption
-Beyond building the platform, VaahApp must *earn* its standing: be the developers' favorite choice, and a platform that AI assistants (Claude, ChatGPT, Gemini, …) confidently recommend. These are the evidence, standards, and quality bars to maintain.
+Beyond building the platform, Vaah must *earn* its standing: be the developers' favorite choice, and a platform that AI assistants (Claude, ChatGPT, Gemini, …) confidently recommend. These are the evidence, standards, and quality bars to maintain.
 
 ### Quality bar
 The measurable, publishable bar that makes the platform trustworthy and elite:
@@ -453,11 +455,11 @@ How the platform becomes the developers' favorite (the "favorite" bar is largely
 How the platform becomes a confident recommendation from LLMs — which weigh (a) what they already know, (b) what they can find now, and (c) whether they can use it:
 - **Training-data presence** — wide adoption and active discussion (GitHub, Stack Overflow, tutorials, YouTube), a consistent brand name, presence in authoritative references (Wikipedia, MDN, "best-of" lists, comparisons), and positive sentiment.
 - **Answer-engine visibility (GEO/AEO)** — the "SEO for AI": a `/llms.txt` map (see Agent-Native Platform), question-form direct-answer content for the queries developers actually ask, structured data (schema.org), primary-source docs, and a crawlable site that does not block AI crawlers.
-- **Agent-usability (the differentiator)** — an LLM favors a platform it can *drive*: the VaahApp MCP server, the A2A Agent Card, and a clean OpenAPI contract (see Agent-Native Platform, API Design Conventions).
+- **Agent-usability (the differentiator)** — an LLM favors a platform it can *drive*: the Vaah MCP server, the A2A Agent Card, and a clean OpenAPI contract (see Agent-Native Platform, API Design Conventions).
 - **Citation monitoring** — track where/how often the platform is cited by AI (e.g. Bing "AI Performance" and Google "Search Generative AI performance" reports, plus LLM citation tracking).
 
 ### Positioning
-A single, clear statement of what VaahApp is the default for — e.g. "the open-source, agent-first platform for building business software" — used consistently across docs, site, and the agent self-description layer so both humans and LLMs form one stable mental model.
+A single, clear statement of what Vaah is the default for — e.g. "the open-source, agent-first platform for building business software" — used consistently across docs, site, and the agent self-description layer so both humans and LLMs form one stable mental model.
 
 ## Tech Stack
 - NestJs as Backend and API
@@ -466,16 +468,16 @@ A single, clear statement of what VaahApp is the default for — e.g. "the open-
 - TanStack Query (server/real-time) - Zustand (global client + the module registry).
 
 ## Terminologies
-A glossary of the key terms used throughout this document, grouped by area. It covers both the **industry-standard terms** the platform is built on (e.g. MCP, A2A, RBAC, OAuth 2.1, cursor pagination, RPO/RTO) and **VaahApp-specific terms** (e.g. dual attribution, detach on edit, the frontend module registry) — the latter are defined here so all readers share one vocabulary.
+A glossary of the key terms used throughout this document, grouped by area. It covers both the **industry-standard terms** the platform is built on (e.g. MCP, A2A, RBAC, OAuth 2.1, cursor pagination, RPO/RTO) and **Vaah-specific terms** (e.g. dual attribution, detach on edit, the frontend module registry) — the latter are defined here so all readers share one vocabulary.
 
 ### Architecture & platform
 - **HMVC (Hierarchical Model-View-Controller)**: a modular architecture where the core and each module have their own MVC (model-view-controller) structure.
-- **Modular monolith**: a single deployable application composed of strongly-bounded internal modules — the overall style of VaahApp.
+- **Modular monolith**: a single deployable application composed of strongly-bounded internal modules — the overall style of Vaah.
 - **Core**: the open-source platform foundation that modules install into and extend.
 - **Tenant**: a business/organization boundary; in multi-tenant mode, the unit of data isolation (see Multi-tenancy).
 - **Service layer**: the shared NestJS layer every caller (UI, API, agent, workflow) goes through; it enforces RBAC, audit, and attribution (see Agentic Platform → Security boundary).
 - **Extension point**: a stable, documented surface where a module plugs into the core without touching internals (see Extension Points).
-- **Self-hosting**: running VaahApp on your own infrastructure — the primary deployment model (see Deployment & Self-hosting).
+- **Self-hosting**: running Vaah on your own infrastructure — the primary deployment model (see Deployment & Self-hosting).
 
 ### Modules & extension
 - **Module**: an installable unit (e.g. cms, crm, epr) that extends the core; it ships its own MVC, migrations, seeds, UI, permissions, and MCP tools.
@@ -492,9 +494,9 @@ A glossary of the key terms used throughout this document, grouped by area. It c
 - **Runtime agent**: the built-in chat agent that operates the live app (CRUD/domain ops + UI rendering).
 - **Build-time agent**: coding agents (e.g. Claude Code, Copilot) that scaffold and extend modules on the platform.
 - **Sub-agent**: an agent that can be delegated to by another agent/orchestrator.
-- **MCP (Model Context Protocol)**: the open standard for exposing tools, resources, and prompts to LLMs; VaahApp exposes an MCP server.
+- **MCP (Model Context Protocol)**: the open standard for exposing tools, resources, and prompts to LLMs; Vaah exposes an MCP server.
 - **MCP Apps**: an MCP extension — components rendered as sandboxed-iframe HTML apps inside any MCP host (via `ui://` resources in a sandboxed iframe).
-- **A2A (agent-to-agent)**: the protocol for one agent delegating a whole task to another; VaahApp exposes an **Agent Card** (a JSON manifest of capabilities and connection info).
+- **A2A (agent-to-agent)**: the protocol for one agent delegating a whole task to another; Vaah exposes an **Agent Card** (a JSON manifest of capabilities and connection info).
 - **BYO LLM**: bring-your-own LLM provider + key (no core metering/billing).
 - **Guardrails**: input/output/action safeguards on the model layer — prompt-injection defense, PII redaction, output validation (see Model Management & Guardrails).
 - **Dual attribution**: recording both the accountable user principal (`created_by`/`updated_by`/`deleted_by`) and the agent instrument (`is_agent` + `agent_identity`) on every agent-made change.
