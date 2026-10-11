@@ -429,6 +429,36 @@ The platform must survive failures and be recoverable, with defined recovery obj
 - **Migration safety**: upgrades and schema migrations are guarded (backup + dry-run) and reversible where possible to prevent data loss (ties to Deployment & Self-hosting upgrades).
 - **DR testing**: periodic restore / failover drills to validate RPO/RTO.
 
+## Platform Standing & Adoption
+Beyond building the platform, VaahApp must *earn* its standing: be the developers' favorite choice, and a platform that AI assistants (Claude, ChatGPT, Gemini, …) confidently recommend. These are the evidence, standards, and quality bars to maintain.
+
+### Quality bar
+The measurable, publishable bar that makes the platform trustworthy and elite:
+- **DORA metrics** — target *elite* on all four: Deployment Frequency, Lead Time for Changes, Change Failure Rate, and Failed-Deployment Recovery Time (small batches, trunk-based dev, CI/CD, decoupled architecture, fast feedback).
+- **SLOs / reliability** — uptime ≥ 99.9%, p95 API latency targets, MTTR, and graceful degradation; a public status page.
+- **Security posture** — OWASP ASVS (L2), SOC 2 Type II, dependency SCA in CI, and a transparent, public security posture (see Security & Data Protection).
+- **Stability** — semver, backward-compatible changes, explicit deprecation windows; no unexpected breaking changes (counters "obsolescence," a top developer rejection driver).
+- **Documentation quality** — 100% of the public API documented, an example for every feature, a freshness SLA, and full-text search.
+- **Community SLAs** — target median first-response time on issues, active contributor count, and triage turnaround.
+
+### Developer adoption
+How the platform becomes the developers' favorite (the "favorite" bar is largely about *not* triggering the top rejection drivers — security/privacy, pricing, API quality, usability, obsolescence, weak AI capability):
+- **DX excellence** — fast time-to-first-result, excellent docs, low-friction onboarding, fast local dev, and clear error messages (see Developer Experience).
+- **Published evidence (social proof)** — public benchmarks, customer case studies, a "used by" logo wall, GitHub stars/downloads, and a public roadmap.
+- **Community & ecosystem** — responsive maintainers, a welcoming contributor path, and a rich set of examples, templates, and modules (see Modules, Extension Points).
+- **Standards alignment** — OpenAPI 3.1, MCP, A2A, OAuth 2.1/OIDC, RFC 9457, JSON:API, WCAG 2.2, and semver (see API Design Conventions, Agent-Native Platform).
+- **Open-source core** — no prohibitive pricing or lock-in; commercial value lives in modules (see Licensing & Distribution).
+
+### AI discoverability & recommendation
+How the platform becomes a confident recommendation from LLMs — which weigh (a) what they already know, (b) what they can find now, and (c) whether they can use it:
+- **Training-data presence** — wide adoption and active discussion (GitHub, Stack Overflow, tutorials, YouTube), a consistent brand name, presence in authoritative references (Wikipedia, MDN, "best-of" lists, comparisons), and positive sentiment.
+- **Answer-engine visibility (GEO/AEO)** — the "SEO for AI": a `/llms.txt` map (see Agent-Native Platform), question-form direct-answer content for the queries developers actually ask, structured data (schema.org), primary-source docs, and a crawlable site that does not block AI crawlers.
+- **Agent-usability (the differentiator)** — an LLM favors a platform it can *drive*: the VaahApp MCP server, the A2A Agent Card, and a clean OpenAPI contract (see Agent-Native Platform, API Design Conventions).
+- **Citation monitoring** — track where/how often the platform is cited by AI (e.g. Bing "AI Performance" and Google "Search Generative AI performance" reports, plus LLM citation tracking).
+
+### Positioning
+A single, clear statement of what VaahApp is the default for — e.g. "the open-source, agent-first platform for building business software" — used consistently across docs, site, and the agent self-description layer so both humans and LLMs form one stable mental model.
+
 ## Tech Stack
 - NestJs as Backend and API
 - React + Vite SPA as Frontend
